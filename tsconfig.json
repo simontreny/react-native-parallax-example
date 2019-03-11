@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"strict": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUnusedLocals": true,
+		"sourceMap": true,
+		"target": "es2015",
+		"jsx": "react-native",
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true
+	}
+}
