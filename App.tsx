@@ -2,11 +2,15 @@ import React from "react";
 import { Image, ScrollView, Text, View } from "react-native";
 
 export default class App extends React.Component {
-  state = { text: "" };
+  state = { text: "", scrollOffset: 0 };
 
   render() {
     return (
-      <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
+      <ScrollView
+        style={{ flex: 1, backgroundColor: "white" }}
+        onScroll={e => this.setState({ scrollOffset: e.nativeEvent.contentOffset.y })}
+        scrollEventThrottle={1}
+      >
         {this.renderHeader()}
         {this.renderContent()}
       </ScrollView>
@@ -16,9 +20,15 @@ export default class App extends React.Component {
   renderHeader() {
     const headerHeight = 240;
     return (
-      <View style={{ height: headerHeight }}>
+      <View
+        style={{
+          height: headerHeight,
+          transform: [{ translateY: this.state.scrollOffset }],
+          zIndex: 100,
+        }}
+      >
         <Image
-          style={{ width: "100%", height: "100%" }}
+          style={[{ width: "100%", height: "100%" }]}
           source={require("./cover.jpg")}
         />
       </View>
