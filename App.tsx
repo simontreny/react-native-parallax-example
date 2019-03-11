@@ -1,26 +1,30 @@
 import React from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import { Animated, Image, Text, View } from "react-native";
 
 export default class App extends React.Component {
-  state = { text: "", scrollOffset: 0 };
+  state = { text: "", scrollOffset: new Animated.Value(0) };
 
   render() {
+    const scrollEvent = Animated.event(
+      [{ nativeEvent: { contentOffset: { y: this.state.scrollOffset } } }],
+      { useNativeDriver: true }
+    );
     return (
-      <ScrollView
+      <Animated.ScrollView
         style={{ flex: 1, backgroundColor: "white" }}
-        onScroll={e => this.setState({ scrollOffset: e.nativeEvent.contentOffset.y })}
+        onScroll={scrollEvent}
         scrollEventThrottle={1}
       >
         {this.renderHeader()}
         {this.renderContent()}
-      </ScrollView>
+      </Animated.ScrollView>
     );
   }
 
   renderHeader() {
     const headerHeight = 240;
     return (
-      <View
+      <Animated.View
         style={{
           height: headerHeight,
           transform: [{ translateY: this.state.scrollOffset }],
@@ -31,7 +35,7 @@ export default class App extends React.Component {
           style={[{ width: "100%", height: "100%" }]}
           source={require("./cover.jpg")}
         />
-      </View>
+      </Animated.View>
     );
   }
 
